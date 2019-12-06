@@ -9,7 +9,7 @@ const actionDB = require('../data/helpers/actionModel.js');
 
 router.get('/', (req, res) => {
   const id = req.params.id;
-  
+
   projectDB.get(id)
     .then(project => {
       res.status(200).json(project)
@@ -20,11 +20,20 @@ router.get('/', (req, res) => {
 
 })
 
-router.post('/projects', (req, res) => {
-  
+router.post('/', (req, res) => {
+  const id = req.params.id;
+  const newProject = req.body;
+
+  projectDB.insert(newProject)
+    .then(project => {
+      res.status(201).json(project)
+    })
+    .catch(error => {
+      res.status(404).json({ errorMessage: 'The new post project could not be created', error })
+    })
 })
 
-router.put('/:id/projects', (req, res) => {
+router.put('/:id', (req, res) => {
   
 })
 
