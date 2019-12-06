@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const id = req.params.id;
+  
   const newProject = req.body;
 
   projectDB.insert(newProject)
@@ -34,7 +34,24 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  
+  const id = req.params.id;
+  const { name, description } = req.body;
+
+  if (!name || !description) {
+    res.status(400).json({ errorMessage: 'Please provide name and description for project' })
+  } else {
+    projectDB.update(req.params.id, req.body)
+      .then(updatedProject => {
+        if (updatedProject) {
+          res.status(200).json(updatedProject);
+        } else {
+          res.status(404).json({ errorMessage: 'The project with that ID could not be found' })
+        }
+      })
+      .catch(error => {
+        res.status(500).json({ errorMessage: 'The project information could not be modified!', error })
+      })
+  }
 })
 
 router.delete('/:id', (req, res) => {
