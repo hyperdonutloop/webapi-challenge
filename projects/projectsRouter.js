@@ -20,6 +20,18 @@ router.get('/', (req, res) => {
 
 })
 
+router.get('/:id/actions', (req, res) => {
+  const id = req.params.id;
+
+  projectDB.getProjectActions(id)
+    .then(projectActions => {
+      res.status(200).json(projectActions)
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: 'There was an error retrieving this projects actions', error })
+    })
+})
+
 router.post('/', (req, res) => {
   
   const newProject = req.body;

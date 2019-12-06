@@ -35,7 +35,7 @@ router.put('/:id', (req, res) => {
   if(!project_id || !description || !notes) {
     res.status(400).json({ errorMessage: 'Please provide project ID, name, and description for action' })
   } else {
-    actionDB.update(id, req.body)
+    actionDB.update(req.params.id, req.body)
       .then(updatedAction => {
         if (updatedAction) {
           res.status(200).json(updatedAction)
