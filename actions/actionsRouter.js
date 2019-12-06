@@ -17,7 +17,15 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  
+  const newAction = req.body;
+
+  actionDB.insert(newAction)
+    .then(action => {
+      res.status(201).json(action)
+    })
+    .catch(error => {
+      res.status(404).json({ errorMessage: 'The new action could not be created', error })
+    })
 })
 
 router.put('/', (req, res) => {
