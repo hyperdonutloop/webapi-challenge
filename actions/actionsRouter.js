@@ -28,8 +28,25 @@ router.post('/', (req, res) => {
     })
 })
 
-router.put('/', (req, res) => {
-  
+router.put('/:id', (req, res) => {
+  const { project_id, description, notes } = req.body;
+  const id = req.params.id;
+
+  if(!project_id || !description || !notes) {
+    res.status(400).json({ errorMessage: 'Please provide project ID, name, and description for action' })
+  } else {
+    actionDB.update(id, req.body)
+      .then(updatedAction => {
+        if (updatedAction) {
+          res.status(200).json(updatedAction)
+        } else {
+          res.status(404).json({ errorMessage: 'The action with that ID could not be found' })
+        }
+      })
+      .catch(error => {
+        res.status(500).json({ errorMessage: 'The action information could not be modified', error })
+      })
+  }
 })
 
 router.delete('/', (req, res) => {
