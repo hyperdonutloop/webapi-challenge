@@ -40,13 +40,24 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+    * Routing - maps incoming requests to the appropriate req handler based on url and http method.
+    * Convenience helpers - res.status, res.send, res.redirect. these all come out of the box with express
+
 - [ ] Describe Middleware?
+
+    * can get the req and res object, operate on them, and trigger an action (logging, security)
 
 - [ ] Describe a Resource?
 
+    * a set of data. any set of data that you are pulling from. like a database.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+    * http status codes!
+
 - [ ] How can we partition our application into sub-applications?
+
+    * Using Router from express. Allows us to split up things just like components in React
 
 ## Minimum Viable Product
 
