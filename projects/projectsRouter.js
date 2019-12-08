@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); // importing the express package
 
 const router = express.Router();
 
@@ -81,4 +81,3 @@ router.delete('/:id', (req, res) => {
 })
 
 module.exports = router;
-
