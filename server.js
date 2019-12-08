@@ -5,13 +5,22 @@ const actionsRouter = require('./actions/actionsRouter.js');
 
 const server = express(); // creates the server
 
-server.use(express.json()); // you NEED express.json for POST and PUT requests because you are *sending data* (in the form of a data object) to the server and asking the server to accept or store that data(object), which is enclosed in the body (req.body) of that POST or PUT request.
-// This is built within express to recognize an incoming request as a JSON object.
-server.use('/api/projects', projectsRouter); // telling the server to use a specific endpoint, passing in "component" and in that component all routes have this address (base URL)
+function logger (req, res, next) {
+  console.log(`[${new Date().toISOString()}] ${req.method} to ${req.url}`);
+  next();
+}
+
+
+
+server.use(express.json());
+server.use(logger);
+server.use('/api/projects', projectsRouter); 
 server.use('/api/actions', actionsRouter);
 
 module.exports = server; 
 
-// /projects to store all projects
-// /actions to store all actions
-// /projects/:id/actions to view a specific project's actions
+
+// line 8: you NEED express.json for POST and PUT requests because you are *sending data* (in the form of a data object) to the server and asking the server to accept or store that data(object), which is enclosed in the body (req.body) of that POST or PUT request.
+// This is built within express to recognize an incoming request as a JSON object.
+
+// telling the server to use a specific endpoint, passing in "component" and in that component all routes have this address (base URL)
